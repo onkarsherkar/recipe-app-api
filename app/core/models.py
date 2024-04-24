@@ -24,9 +24,10 @@ def recipe_image_file_path(instance, filename):
 class UserManager(BaseUserManager):
     """Manage for user"""
     def create_user(self, email, password=None, **extra_fields):
+        """create save and return a new user"""
         if not email:
             raise ValueError('User must have an email address')
-        """create save and return a new user"""
+
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
