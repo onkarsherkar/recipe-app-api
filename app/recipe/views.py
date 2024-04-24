@@ -27,18 +27,18 @@ from recipe import serializers
 
 @extend_schema_view(
     list=extend_schema(
-        parameters=(
+        parameters=[
             OpenApiParameter(
                 'tags',
                 OpenApiTypes.STR,
-                description='Comma seprated list of IDs to filter'
+                description='Comma separated list of tag IDs to filter',
             ),
             OpenApiParameter(
                 'ingredients',
                 OpenApiTypes.STR,
-                description='Comma seprated list of ingredients IDs to filter'
+                description='Comma separated list of ingredients IDs to filter'
             )
-        )
+        ]
     )
 )
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -94,17 +94,17 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# @extend_schema_view(
-#     list=extend_schema(
-#         parameters=[
-#             OpenApiParameter(
-#                 'assigned_only',
-#                 OpenApiTypes.INT, enum=[0, 1],
-#                 description='Filter by items assigned to recipes',
-#             )
-#         ]
-#     )
-# )
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'assigned_only',
+                OpenApiTypes.INT, enum=[0, 1],
+                description='Filter by items assigned to recipes',
+            )
+        ]
+    )
+)
 class BaseRecipeAttrViewSet(mixins.DestroyModelMixin,
                             mixins.ListModelMixin,
                             mixins.UpdateModelMixin,
